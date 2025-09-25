@@ -8,14 +8,14 @@ Integration can be used with [`yt_dlp-card`](https://github.com/ybk5053/yt_dlp-c
 
 Clone or download this repository and copy the "yt_dlp" directory to your "custom_components" directory in your config directory
 
-```<config directory>/custom_components/yt_dlp/...```
+`<config directory>/custom_components/yt_dlp/...`
 
 ## HACS
 
 - Add Custom Repositories
 
 ```text
-Repository: https://github.com/ybk5053/yt_dlp_hass
+Repository: https://github.com/jonthia/yt_dlp_hass
 Category: Integration
 ```
 
@@ -23,7 +23,7 @@ Category: Integration
 
 ### Configuration via the "Configuration -> Integrations" section of the Home Assistant UI
 
-- Search for the integration labeled "Youtube DLP" and select it.  
+- Search for the integration labeled "Youtube DLP" and select it.
 - Enter the path for the download directory.
 
 ## Downloading
