@@ -7,7 +7,12 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_FILE_PATH
 from homeassistant.data_entry_flow import FlowResult
 
-from .const import DOMAIN
+from .const import DOMAIN, PLAYLIST
+
+config_options = vol.Schema({
+    vol.Required(CONF_FILE_PATH): str,
+    vol.Required(PLAYLIST): str,
+})
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow."""
@@ -36,7 +41,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user", 
-            data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), 
+            data_schema=config_options,
             errors=errors
         )
     
@@ -60,6 +65,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}),
+            data_schema=config_options, 
             errors=errors
         )

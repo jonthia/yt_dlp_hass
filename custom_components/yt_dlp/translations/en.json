@@ -10,7 +10,8 @@
     "step": {
       "user": {
         "data": {
-          "file_path": "Path to download folder"
+          "file_path": "Path to download folder eg. '/media/music'",
+          "playlist": "Playlist URL from YouTube"
         },
         "title": "Youtube-DLP"
       }
@@ -20,7 +21,8 @@
     "step": {
       "init": {
         "data": {
-          "file_path": "Path to download folder"
+          "file_path": "Path to download folder eg. '/media/music'",
+          "playlist": "Playlist URL from YouTube"
         },
         "title": "Youtube-DLP"
       }

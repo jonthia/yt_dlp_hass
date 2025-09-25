@@ -2,19 +2,17 @@
 import logging
 import os
 import re
-import time
 
 import voluptuous as vol
 
 from homeassistant.const import CONF_FILE_PATH
-from homeassistant.core import HomeAssistant, ServiceCall
+from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
 from yt_dlp import YoutubeDL
 
-from .const import DOMAIN
+from .const import DOMAIN, PLAYLIST
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -70,8 +68,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         hass.states.set(f"{DOMAIN}.downloader", len(attr), attr)
 
     def download(call):
-        """Download a video."""
-        # logger = DLP_Logger(self.downloads, hook.id)
+        """Download contents of a playlist."""
         ydl_opts = {
             'ignoreerrors': True,
             "progress_hooks": [progress_hook],
@@ -84,14 +81,14 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             if k not in ["url", "progress_hooks", "paths"]:
                 ydl_opts[k] = v
         with YoutubeDL(ydl_opts) as ydl:
-            ydl.download([call.data["url"]])
+            ydl.download([config.data[PLAYLIST]])
 
     from urllib.parse import urlparse
     hass.services.async_register( 
         DOMAIN,
         "download",
         download,
-        schema=vol.Schema({vol.Required("url"): lambda v: v if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
+        # schema=vol.Schema({vol.Required("url"): lambda v: v if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
     )
 
     return True
